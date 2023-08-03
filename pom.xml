@@ -32,6 +32,12 @@
          <artifactId>spring-boot-starter-thymeleaf</artifactId>
       </dependency>
 
+      <!-- Add Spring Boot Security and OAuth2 dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
