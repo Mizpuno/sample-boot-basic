@@ -2,10 +2,15 @@ package th.mfu;
 
 import java.util.Date;
 
+import javax.persistence.*;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+@Entity
 public class Employee {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     @JsonProperty("first_name")
@@ -19,10 +24,18 @@ public class Employee {
     
     private long salary;
 
+    // relationship to ther entities.
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "position_id", referencedColumnName = "id")
+    private Position position;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    private Account account;
+    
     public Employee() {}
     
-    public Employee(Long id, String firstName, String lastName, Date birthday, long salary ) {
-        this.id = id;
+    public Employee(String firstName, String lastName, Date birthday, long salary ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
@@ -31,6 +44,22 @@ public class Employee {
 
     public String getFirstName() {
         return firstName;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public void setFirstName(String firstName) {
@@ -61,11 +90,11 @@ public class Employee {
         this.salary = salary;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

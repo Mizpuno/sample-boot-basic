@@ -1,13 +1,23 @@
 package th.mfu;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Product {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
     private String name;
+
     private String description;
     private long price;
 
     public Product() {}
 
-    public Product(String name, String description, long price) {
+    public Product(Long id, String name, String description, long price) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -35,6 +45,14 @@ public class Product {
 
     public void setPrice(long price) {
         this.price = price;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
     
 }
